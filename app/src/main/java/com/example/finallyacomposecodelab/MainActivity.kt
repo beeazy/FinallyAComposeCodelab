@@ -3,18 +3,20 @@ package com.example.finallyacomposecodelab
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
@@ -64,7 +66,13 @@ fun Greet(txt: Text) {
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        Column() {
+        var isExpanded by remember {
+            mutableStateOf(false)
+        }
+
+        val surfaceColor by animateColorAsState(if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface)
+
+        Column(Modifier.clickable { isExpanded = !isExpanded }) {
             Text(
                 text = txt.title,
                 color = MaterialTheme.colorScheme.primary,
@@ -75,12 +83,15 @@ fun Greet(txt: Text) {
 
             Surface(
                 shape = MaterialTheme.shapes.medium,
-                shadowElevation = 1.dp
+                color = surfaceColor,
+                shadowElevation = 1.dp,
+                modifier = Modifier.animateContentSize().padding(1.dp)
             ) {
                 Text(
                     text = txt.body,
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(all = 4.dp)
+                    modifier = Modifier.padding(all = 4.dp),
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 1
                 )
 
             }
@@ -95,7 +106,6 @@ fun PreviewThis() {
 
     FinallyAComposeCodelabTheme() {
         Surface() {
-//            Greet(txt = Text("Evans", "am learning compose by myself and I think it's cool as a cucumber"))
             Conversation(messages = SampleData.conversationSample)
         }
     }
