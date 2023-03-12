@@ -1,13 +1,15 @@
 package com.example.finallyacomposecodelab
 
 import android.os.Bundle
-import android.widget.Toolbar
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -28,16 +30,25 @@ class MainActivity : ComponentActivity() {
         setContent {
             FinallyAComposeCodelabTheme() {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    Greet(txt = text("Evans", "am learning compose by myself"))
+                    Conversation(messages = SampleData.conversationSample)
                 }
             }
         }
     }
 }
-data class text(val title: String, val body: String)
+data class Text(val title: String, val body: String)
 
 @Composable
-fun Greet(txt: text) {
+fun Conversation(messages : List<Text>) {
+    LazyColumn() {
+        items(messages) {
+            Greet(it)
+        }
+    }
+}
+
+@Composable
+fun Greet(txt: Text) {
 
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Image(
@@ -52,13 +63,25 @@ fun Greet(txt: text) {
         )
 
         Spacer(modifier = Modifier.width(8.dp))
+
         Column() {
-            Text(text = "I am ${txt.title}", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleMedium)
+            Text(
+                text = txt.title,
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.titleMedium
+            )
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            Surface(shape = MaterialTheme.shapes.medium, shadowElevation = 1.dp) {
-                Text(text = txt.body, style = MaterialTheme.typography.bodyMedium)
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                shadowElevation = 1.dp
+            ) {
+                Text(
+                    text = txt.body,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(all = 4.dp)
+                )
 
             }
         }
@@ -72,7 +95,8 @@ fun PreviewThis() {
 
     FinallyAComposeCodelabTheme() {
         Surface() {
-            Greet(txt = text("Evans", "am learning compose by myself"))
+//            Greet(txt = Text("Evans", "am learning compose by myself and I think it's cool as a cucumber"))
+            Conversation(messages = SampleData.conversationSample)
         }
     }
 }
