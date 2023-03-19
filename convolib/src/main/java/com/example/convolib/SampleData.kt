@@ -1,15 +1,15 @@
-package com.example.finallyacomposecodelab
+package com.example.convolib
 
 object SampleData {
     val title = "Evans"
 
     // Sample conversation data
     val conversationSample = listOf(
-        Text(
+        Message(
             title,
             "Test...Test...Test..."
         ),
-        Text(
+        Message(
             title,
             "List of Android versions:\n" +
                     "Android KitKat (API 19)\n" +
@@ -22,51 +22,51 @@ object SampleData {
                     "Android 11 (API 30)\n" +
                     "Android 12 (API 31)\n"
         ),
-        Text(
+        Message(
             title,
             "I think Kotlin is my favorite programming language.\n" +
                     "It's so much fun!"
         ),
-        Text(
+        Message(
             title,
             "Searching for alternatives to XML layouts..."
         ),
-        Text(
+        Message(
             title,
             "Hey, take a look at Jetpack Compose, it's great!\n" +
                     "It's the Android's modern toolkit for building native UI." +
                     "It simplifies and accelerates UI development on Android." +
                     "Less code, powerful tools, and intuitive Kotlin APIs :)"
         ),
-        Text(
+        Message(
             title,
             "It's available from API 21+ :)"
         ),
-        Text(
+        Message(
             title,
             "Writing Kotlin for UI seems so natural, Compose where have you been all my life?"
         ),
-        Text(
+        Message(
             title,
             "Android Studio next version's name is Arctic Fox"
         ),
-        Text(
+        Message(
             title,
             "Android Studio Arctic Fox tooling for Compose is top notch ^_^"
         ),
-        Text(
+        Message(
             title,
             "I didn't know you can now run the emulator directly from Android Studio"
         ),
-        Text(
+        Message(
             title,
             "Compose Previews are great to check quickly how a composable layout looks like"
         ),
-        Text(
+        Message(
             title,
             "Previews are also interactive after enabling the experimental setting"
         ),
-        Text(
+        Message(
             title,
             "Have you tried writing build.gradle with KTS?"
         ),
